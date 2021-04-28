@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import NavbarComponents from "./components/NavbarComponents";
 import JumbotronComponents from "./components/JumbotronComponents";
 import { Container } from "reactstrap";
-import { TableComponents } from "./components/TableComponents";
+import { BrowserRouter, Route, Router } from "react-router-dom";
+import HomeContainer from "./container/HomeContainer";
+import EditUserContainer from "./container/EditUserContainer";
+import DetailUserContainer from "./container/DetailUserContainer";
+import CreateUserContainer from "./container/CreateUserContainer";
 
 export default class App extends Component {
   state = {
@@ -92,7 +96,26 @@ export default class App extends Component {
       <Container>
         <NavbarComponents />
         <JumbotronComponents title={this.state.title} />
-        <TableComponents users={this.state.users} />
+        <BrowserRouter>
+          <Route path="/" exact>
+            <HomeContainer users={this.state.users} />
+          </Route>
+        </BrowserRouter>
+        <BrowserRouter>
+          <Route path="/edit/:id" exact>
+            <EditUserContainer />
+          </Route>
+        </BrowserRouter>
+        <BrowserRouter>
+          <Route path="/detail/:id" exact>
+            <DetailUserContainer />
+          </Route>
+        </BrowserRouter>
+        <BrowserRouter>
+          <Route path="/create" exact>
+            <CreateUserContainer />
+          </Route>
+        </BrowserRouter>
       </Container>
     );
   }
